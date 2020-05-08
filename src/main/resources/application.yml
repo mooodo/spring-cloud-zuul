@@ -1,0 +1,43 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 8769
+spring:
+  application:
+    name: service-zuul
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
+zuul:
+  PreRequestLogFilter:
+    disable: true
+  ignoredServices: '*'
+  host:
+    maxTotalConnections: 200 #总连接数
+    maxPerRouteConnections: 20 #每个路由连接数
+    connect-timeout-millis: 2000 #当routes走url时生效
+    socket-timeout-millis: 5000 #当routes走url时生效
+  retryable: true
+  prefix: /demo
+  routes: #动态路由
+    ribbon:
+      path: /ribbon/**
+      serviceId: service-ribbon
+      stripPrefix: false #是否去掉前缀
+    feign:
+      path: /feign/**
+      serviceId: service-feign
+      stripPrefix: false #是否去掉前缀
+    else:
+      path: /**
+      url: https://www.baidu.com
+
+ribbon:
+  connectTimeout: 2000 # 请求连接的超时时间
+  readTimeout: 5000 # 请求处理的超时时间
+  maxAutoRetries: 1 # 对当前实例的重试次数
+  maxAutoRetriesNextServer: 3# 切换实例的重试次数
+  okToRetryOnAllOperations: true# 对所有操作请求都进行重试
