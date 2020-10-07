@@ -13,7 +13,8 @@ spring:
         enabled: true
 zuul:
   PreRequestLogFilter:
-    disable: true
+    pre:
+      disable: true
   ignoredServices: '*'
   host:
     maxTotalConnections: 200 #总连接数

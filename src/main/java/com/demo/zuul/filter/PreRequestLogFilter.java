@@ -12,7 +12,6 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
 /**
- * 
  * @author fangang
  */
 public class PreRequestLogFilter extends ZuulFilter {
